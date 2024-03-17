@@ -2,7 +2,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import AddForm from "./AddForm";
 
-function AddRoomModal({ open, setOpen, onAddRoom }) {
+function AddRoomModal({ open, setOpen }) {
   function handleClose() {
     setOpen(false);
   }
@@ -13,14 +13,11 @@ function AddRoomModal({ open, setOpen, onAddRoom }) {
         <Modal.Title>Add New Room</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AddForm onAddRoom={onAddRoom} />
+        <AddForm setOpen={setOpen} />
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
-        </Button>
-        <Button variant="primary" onClick={handleClose}>
-          Add Room
         </Button>
       </Modal.Footer>
     </Modal>

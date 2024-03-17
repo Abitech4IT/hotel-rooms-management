@@ -1,20 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useDispatch, useSelector } from "react-redux";
+import { createRoom } from "../redux/actions/room";
 
-function AddForm({ onAddRoom }) {
+function AddForm({ setOpen }) {
+  const { success, error } = useSelector((state) => state.rooms);
+  const dispatch = useDispatch();
+
   const [roomNumber, setRoomNumber] = useState("");
   const [roomType, setRoomType] = useState("");
   const [guest, setGuest] = useState("");
   const [price, setPrice] = useState("");
+
+  useEffect(
+    function () {
+      if (error) {
+        console.log(error);
+      }
+      if (success) {
+        console.log(success);
+      }
+    },
+    [error, success]
+  );
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!roomNumber || !roomType || !guest || !price) return;
 
     const newRoom = { roomNumber, roomType, guest, price };
-    console.log(newRoom);
-    onAddRoom(newRoom);
+    dispatch(createRoom(newRoom));
+    setOpen(false);
+    window.location.reload(true);
 
     setRoomNumber("");
     setRoomType("");
