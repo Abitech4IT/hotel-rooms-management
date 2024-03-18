@@ -1,5 +1,6 @@
 import axios from "axios";
-const API_URL = "http://localhost:5000/api/v1/rooms";
+// const API_URL = "http://localhost:5000/api/v1/rooms"; dev mode
+const API_URL = "https://hotel-rooms-management.onrender.com/api/v1/rooms";
 
 // create-room
 export const createRoom = (newRoom) => async (dispatch) => {
