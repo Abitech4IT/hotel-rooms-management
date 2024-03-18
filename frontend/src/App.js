@@ -7,7 +7,8 @@ import UpdateRoomModal from "./components/UpdateRoomModal";
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
 
-const API_URL = "http://localhost:5000/api/v1/rooms";
+// const API_URL = "http://localhost:5000/api/v1/rooms"; --dev mode
+const API_URL = "https://hotel-rooms-management.onrender.com/api/v1/rooms";
 
 function App() {
   const [open, setOpen] = useState(false);
