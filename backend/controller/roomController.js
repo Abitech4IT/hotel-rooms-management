@@ -35,6 +35,26 @@ exports.getAllRooms = catchAsyncError(async (req, res, next) => {
   }
 });
 
+exports.getRoom = catchAsyncError(async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(404).json({
+        success: false,
+        message: "Room not found",
+      });
+    }
+    const room = await Room.findById(id);
+    res.status(200).json({
+      success: true,
+      message: "Room fetch successfully",
+      room,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 400));
+  }
+});
+
 exports.updateRoom = catchAsyncError(async (req, res, next) => {
   try {
     const id = req.params.id;

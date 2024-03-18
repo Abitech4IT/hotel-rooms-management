@@ -1,43 +1,37 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch, useSelector } from "react-redux";
-import { createRoom } from "../redux/actions/room";
+import { useDispatch } from "react-redux";
+import { updateRoom } from "../redux/actions/room";
 import toast from "react-hot-toast";
 
-function AddForm({ setOpen }) {
-  const { success, error } = useSelector((state) => state.rooms);
+function UpdateForm({ setOpenFormEdit, room }) {
+  const [roomNumber, setRoomNumber] = useState(room && room.roomNumber);
+  const [roomType, setRoomType] = useState(room && room.roomType);
+  const [guest, setGuest] = useState(room && room.guest);
+  const [price, setPrice] = useState(room && room.price);
+
   const dispatch = useDispatch();
 
-  const [roomNumber, setRoomNumber] = useState("");
-  const [roomType, setRoomType] = useState("");
-  const [guest, setGuest] = useState("");
-  const [price, setPrice] = useState("");
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-  }, [error, success]);
-
-  function handleSubmit(e) {
+  function handleUpdate(e) {
     e.preventDefault();
     if (!roomNumber || !roomType || !guest || !price) return;
 
-    const newRoom = { roomNumber, roomType, guest, price };
-    dispatch(createRoom(newRoom));
-    toast.success("Room created successfully");
-    setOpen(false);
-    window.location.reload(true);
+    const newUpdatedRoom = {
+      roomNumber,
+      roomType,
+      guest,
+      price,
+    };
+    dispatch(updateRoom(room._id, newUpdatedRoom));
+    toast.success("Room updated Successfully");
 
-    setRoomNumber("");
-    setRoomType("");
-    setGuest("");
-    setPrice("");
+    setOpenFormEdit(false);
+    window.location.reload(true);
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleUpdate}>
       <Form.Group className="mb-3">
         <Form.Label>Room Number</Form.Label>
         <Form.Control
@@ -85,4 +79,4 @@ function AddForm({ setOpen }) {
   );
 }
 
-export default AddForm;
+export default UpdateForm;

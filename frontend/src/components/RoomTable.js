@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { getAllRooms } from "../redux/actions/room";
 import LoadingSpinner from "./LoadingSpinner";
 
-function RoomTable() {
+function RoomTable({ handleOpenUpdate }) {
   const { rooms, isLoading } = useSelector((state) => state.rooms);
 
   const dispatch = useDispatch();
@@ -32,7 +32,12 @@ function RoomTable() {
           </thead>
           <tbody>
             {rooms?.map((data, index) => (
-              <TableList data={data} index={index} key={data.roomType} />
+              <TableList
+                handleOpenUpdate={handleOpenUpdate}
+                data={data}
+                index={index}
+                key={data.roomType}
+              />
             ))}
           </tbody>
         </Table>

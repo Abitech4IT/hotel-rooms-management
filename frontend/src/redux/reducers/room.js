@@ -41,6 +41,23 @@ export function roomReducer(state = initialState, action) {
         error: action.payload,
         success: false,
       };
+    //get a single room
+    case "getRoomRequest":
+      return { ...state, isLoading: true };
+    case "getRoomSuccess":
+      return {
+        ...state,
+        isLoading: false,
+        rooms: action.payload,
+        success: true,
+      };
+    case "getRoomFailed":
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+        success: false,
+      };
     // update room
     case "updateRoomRequest":
       return { ...state, isLoading: true };

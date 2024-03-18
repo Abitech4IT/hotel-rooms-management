@@ -47,3 +47,60 @@ export const getAllRooms = () => async (dispatch) => {
     });
   }
 };
+
+//get a single room
+
+export const getRoom = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "getRoomRequest",
+    });
+    const { data } = await axios.get(`${API_URL}/${id}`);
+    dispatch({
+      type: "getRoomSuccess",
+      payload: data.room,
+    });
+  } catch (error) {
+    dispatch({
+      type: "getRoomFailed",
+      payload: error,
+    });
+  }
+};
+
+//update a room
+export const updateRoom = (id, updatedRoom) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "updateRoomRequest",
+    });
+    const { data } = await axios.put(`${API_URL}/${id}`, updatedRoom);
+    dispatch({
+      type: "updateRoomSuccess",
+      payload: data.room,
+    });
+  } catch (error) {
+    dispatch({
+      type: "updateRoomFailed",
+      payload: error,
+    });
+  }
+};
+
+export const deleteRoom = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "deleteRoomRequest",
+    });
+    const { data } = await axios.delete(`${API_URL}/${id}`);
+    dispatch({
+      type: "deleteRoomSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteRoomFailed",
+      payload: error,
+    });
+  }
+};
